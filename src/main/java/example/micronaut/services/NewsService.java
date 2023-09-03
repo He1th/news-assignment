@@ -24,19 +24,13 @@ import java.util.*;
 @Singleton
 public class NewsService {
 
-    @Inject
-    private Utils utils;
-
-    @Inject
-    private ObjectMapper objectMapper;
-    private TypeReference TypeReference;
 
     public String findNews() throws IOException {
         Gson gson = new Gson();
         String result = "";
+
         try {
-            URL url = getClass().getClassLoader().getResource("news.json");
-            FileReader reader = new FileReader("/Users/frederikhelth/Documents/GitHub/news-assignment/build/resources/main/news.json");
+            FileReader reader = new FileReader("./src/main/resources/news.json");
             Map<String, List<News>> schedule = gson.fromJson(reader, new TypeToken<Map<String, List<News>>>() {}.getType());
 
             // Before creating the result, create a better working data.
@@ -66,7 +60,7 @@ public class NewsService {
                 result += "\n";
             }
 
-        } catch (IOException  e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return result;
